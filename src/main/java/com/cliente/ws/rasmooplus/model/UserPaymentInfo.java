@@ -1,15 +1,16 @@
 package com.cliente.ws.rasmooplus.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "user_payment_info")
 public class UserPaymentInfo {
@@ -26,9 +27,13 @@ public class UserPaymentInfo {
     private Integer cardExcpirationYear;
     @Column(name = "card_security_code")
     private String cardSecurityCode;
-    private Double price;
+    private BigDecimal price;
     private Integer instalments;
     @Column(name = "dt_payment")
-    private LocalDateTime dtPayment;
+    private LocalDate dtPayment;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

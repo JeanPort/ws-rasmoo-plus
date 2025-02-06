@@ -1,13 +1,15 @@
 package com.cliente.ws.rasmooplus.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+import java.math.BigDecimal;
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "subscription_type")
 public class SubscriptionType {
@@ -19,7 +21,7 @@ public class SubscriptionType {
     private String name;
     @Column(name = "access_months")
     private Integer accessMonth;
-    private Double price;
+    private BigDecimal price;
     @Column(name = "product_key")
     private String productKey;
 

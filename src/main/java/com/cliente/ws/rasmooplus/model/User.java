@@ -1,17 +1,17 @@
 package com.cliente.ws.rasmooplus.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+@Data
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 public class User {
 
     @Id
@@ -23,8 +23,16 @@ public class User {
     private String phone;
     private String cpf;
     @Column(name = "dt_subscription")
-    private LocalDateTime dtSubscription;
+    private LocalDate dtSubscription = LocalDate.now();
     @Column(name = "dt_expiration")
-    private LocalDateTime dtExpiration;
+    private LocalDate dtExpiration;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_type_id")
+    private UserType userType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subscription_type_id")
+    private SubscriptionType subscriptionType;
 
 }

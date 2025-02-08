@@ -2,7 +2,6 @@ package com.cliente.ws.rasmooplus.service;
 
 import com.cliente.ws.rasmooplus.model.SubscriptionType;
 import com.cliente.ws.rasmooplus.repository.SubscriptionTypeRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,11 +9,13 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class SubscriptionTypeImpl implements ISubscriptionTypeService{
 
     private final SubscriptionTypeRepository repository;
 
+    public SubscriptionTypeImpl(SubscriptionTypeRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<SubscriptionType> findAll() {

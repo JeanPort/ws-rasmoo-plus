@@ -1,6 +1,10 @@
 package com.cliente.ws.rasmooplus.controller;
 
-import com.cliente.ws.rasmooplus.model.SubscriptionType;
+import com.cliente.ws.rasmooplus.dto.request.PostSubscriptionTypeRequest;
+import com.cliente.ws.rasmooplus.dto.request.UpdateSubscriptionTypeRequest;
+import com.cliente.ws.rasmooplus.dto.response.GetSubscriptionTypeResponse;
+import com.cliente.ws.rasmooplus.dto.response.PostSubscriptionTypeResponse;
+import com.cliente.ws.rasmooplus.dto.response.UpdateSubscriptionTypeResponse;
 import com.cliente.ws.rasmooplus.service.ISubscriptionTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,26 +24,26 @@ public class SubscriptionTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SubscriptionType>> findAll() {
+    public ResponseEntity<List<GetSubscriptionTypeResponse>> findAll() {
         var res = service.findAll();
         return ResponseEntity.ok(res);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SubscriptionType> findById(@PathVariable Long id){
+    public ResponseEntity<GetSubscriptionTypeResponse> findById(@PathVariable Long id){
         var res = service.findById(id);
         return ResponseEntity.ok(res);
     }
 
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody SubscriptionType subscriptionType) {
-        var  res = service.create(subscriptionType);
+    public ResponseEntity<PostSubscriptionTypeResponse> create(@RequestBody PostSubscriptionTypeRequest request) {
+        var  res = service.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
     @PutMapping
-    public ResponseEntity<SubscriptionType> update(@RequestBody SubscriptionType subscriptionType) {
-        var res = service.update(subscriptionType);
+    public ResponseEntity<UpdateSubscriptionTypeResponse> update(@RequestBody UpdateSubscriptionTypeRequest request) {
+        var res = service.update(request);
         return ResponseEntity.ok(res);
     }
 

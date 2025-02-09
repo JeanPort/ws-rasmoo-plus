@@ -2,7 +2,7 @@ package com.cliente.ws.rasmooplus.dto.request;
 
 import java.math.BigDecimal;
 
-public record UpdateSubscriptionTypeUserRequest(
+public record UpdateSubscriptionTypeRequest(
         Long id,
         String name,
         Integer accessMonth,

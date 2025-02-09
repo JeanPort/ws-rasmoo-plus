@@ -1,11 +1,14 @@
 package com.cliente.ws.rasmooplus.service;
 
+import com.cliente.ws.rasmooplus.dto.request.PostSubscriptionTypeRequest;
+import com.cliente.ws.rasmooplus.dto.request.UpdateSubscriptionTypeRequest;
+import com.cliente.ws.rasmooplus.dto.response.GetSubscriptionTypeResponse;
+import com.cliente.ws.rasmooplus.dto.response.PostSubscriptionTypeResponse;
+import com.cliente.ws.rasmooplus.dto.response.UpdateSubscriptionTypeResponse;
 import com.cliente.ws.rasmooplus.exception.NotFoundExcption;
-import com.cliente.ws.rasmooplus.model.SubscriptionType;
+import com.cliente.ws.rasmooplus.mapper.ISubscriptionTypeMapper;
 import com.cliente.ws.rasmooplus.repository.SubscriptionTypeRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,27 +16,31 @@ import java.util.List;
 public class SubscriptionTypeImpl implements ISubscriptionTypeService{
 
     private final SubscriptionTypeRepository repository;
+    private final ISubscriptionTypeMapper mapper;
 
-    public SubscriptionTypeImpl(SubscriptionTypeRepository repository) {
+    public SubscriptionTypeImpl(SubscriptionTypeRepository repository, ISubscriptionTypeMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
-    public List<SubscriptionType> findAll() {
-        return repository.findAll();
+    public List<GetSubscriptionTypeResponse> findAll() {
+        var res = repository.findAll();
+        return mapper.toListGetSubscriptionTypeResponse(res);
     }
 
     @Override
-    public SubscriptionType findById(Long id) {
-
-        return repository.findById(id).orElseThrow(() -> new NotFoundExcption("Não encontrado"));
+    public GetSubscriptionTypeResponse findById(Long id) {
+        var res = repository.findById(id).orElseThrow(() -> new NotFoundExcption("Não encontrado"));
+        return mapper.toGetSubscriptionTypeResponse(res);
     }
 
     @Override
-    public SubscriptionType update(SubscriptionType subscriptionType) {
-        repository.findById(subscriptionType.getId()).orElseThrow(() -> new NotFoundExcption("Não encontrado"));
-
-        return repository.save(subscriptionType);
+    public UpdateSubscriptionTypeResponse update(UpdateSubscriptionTypeRequest request) {
+        repository.findById(request.id()).orElseThrow(() -> new NotFoundExcption("Não encontrado"));
+        var update = mapper.toSubscriptionType(request);
+        update = repository.save(update);
+        return mapper.toUpdateSubscriptionTypeResponse(update);
     }
 
     @Override
@@ -43,7 +50,9 @@ public class SubscriptionTypeImpl implements ISubscriptionTypeService{
     }
 
     @Override
-    public Long create(SubscriptionType subscriptionType) {
-        return repository.save(subscriptionType).getId();
+    public PostSubscriptionTypeResponse create(PostSubscriptionTypeRequest request) {
+        var post = mapper.toSubscriptionType(request);
+        post = repository.save(post);
+        return mapper.toPostSubscriptionTypeResponse(post);
     }
 }

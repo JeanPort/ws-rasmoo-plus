@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
-public record UserPostRequest(
+public record PostUserRequest(
         @NotBlank(message = "O campo 'name' não pode ser nulo ou em branco")
         String name,
         @NotBlank(message = "O campo 'email' não pode ser nulo ou em branco")

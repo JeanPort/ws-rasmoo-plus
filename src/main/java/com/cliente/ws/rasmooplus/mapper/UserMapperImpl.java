@@ -87,7 +87,7 @@ public class UserMapperImpl implements IUserMapper{
                 user.getDtSubscription(),
                 user.getDtExpiration(),
                 user.getUserType().getId(),
-                user.getSubscriptionType().getId()
+                user.getSubscriptionType() == null ? null : user.getSubscriptionType().getId()
         );
     }
 

@@ -12,7 +12,7 @@ public interface IUserService {
 
     List<GetUserResponse> findAll();
     GetUserResponse findById(Long id);
-    UpdateUserResponse update(UpdateUserRequest subscriptionType);
+    UpdateUserResponse update(UpdateUserRequest request);
     void deleteById(Long id);
-    PostUserResponse create(PostUserRequest subscriptionType);
+    PostUserResponse create(PostUserRequest request);
 }

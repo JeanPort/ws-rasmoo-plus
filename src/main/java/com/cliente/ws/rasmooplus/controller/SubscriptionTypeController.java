@@ -6,6 +6,7 @@ import com.cliente.ws.rasmooplus.dto.response.GetSubscriptionTypeResponse;
 import com.cliente.ws.rasmooplus.dto.response.PostSubscriptionTypeResponse;
 import com.cliente.ws.rasmooplus.dto.response.UpdateSubscriptionTypeResponse;
 import com.cliente.ws.rasmooplus.service.ISubscriptionTypeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +37,13 @@ public class SubscriptionTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<PostSubscriptionTypeResponse> create(@RequestBody PostSubscriptionTypeRequest request) {
+    public ResponseEntity<PostSubscriptionTypeResponse> create(@RequestBody @Valid PostSubscriptionTypeRequest request) {
         var  res = service.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
     @PutMapping
-    public ResponseEntity<UpdateSubscriptionTypeResponse> update(@RequestBody UpdateSubscriptionTypeRequest request) {
+    public ResponseEntity<UpdateSubscriptionTypeResponse> update(@RequestBody @Valid UpdateSubscriptionTypeRequest request) {
         var res = service.update(request);
         return ResponseEntity.ok(res);
     }

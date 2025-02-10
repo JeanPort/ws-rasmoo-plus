@@ -21,14 +21,11 @@ public class GlobalExceptionHandle {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<ErrorResponseList> handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         var fieldErrors = e.getFieldErrors();
-
         var list = fieldErrors.stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
+        var error = new ErrorResponseList(list);
 
-        var message = String.join(", ", list);
-
-        var error = new ErrorResponse(message);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 

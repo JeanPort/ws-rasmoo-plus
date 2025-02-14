@@ -1,10 +1,12 @@
 package com.cliente.ws.rasmooplus.dto.wsraspay;
 
+import java.math.BigDecimal;
+
 public class OrderDto {
 
     private String id;
     private String customerId;
-    private Integer discount;
+    private BigDecimal discount;
     private String productAcronym;
 
     public String getId() {
@@ -23,11 +25,11 @@ public class OrderDto {
         this.customerId = customerId;
     }
 
-    public Integer getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Integer discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 

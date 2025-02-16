@@ -3,6 +3,7 @@ package com.cliente.ws.rasmooplus.service;
 import com.cliente.ws.rasmooplus.dto.request.PaymentProcessRequest;
 import com.cliente.ws.rasmooplus.dto.wsraspay.CustomerDto;
 import com.cliente.ws.rasmooplus.dto.wsraspay.OrderDto;
+import com.cliente.ws.rasmooplus.exception.BusinessException;
 import com.cliente.ws.rasmooplus.exception.NotFoundExcption;
 import com.cliente.ws.rasmooplus.integration.IWsRaspayIntegrationService;
 import com.cliente.ws.rasmooplus.mapper.IWsRaspayMapper;
@@ -32,7 +33,7 @@ public class UserPaymentInfoServiceImpl implements IUserPaymentInfoService{
 
         var user = userRepository.findById(request.getUserPaymentInfo().getUserId()).orElseThrow(() -> new NotFoundExcption("Não encontrado"));
         if (user.getSubscriptionType() != null) {
-            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"Ja possui escriçao");
+            throw  new BusinessException("Subscription ja existe");
         }
 
         var customerDto = mapper.toCustomerDto(user);

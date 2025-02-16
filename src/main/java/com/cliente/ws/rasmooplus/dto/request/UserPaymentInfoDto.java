@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class UserPaymentInfoPostRequest {
+public class UserPaymentInfoDto {
 
     private Long id;
     @Size(min = 16, max = 16, message = "O atributo 'cardNumber' deve conter 16 caracteres")

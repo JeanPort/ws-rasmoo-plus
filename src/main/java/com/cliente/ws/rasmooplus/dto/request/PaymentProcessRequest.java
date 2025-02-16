@@ -6,7 +6,7 @@ public class PaymentProcessRequest {
 
     private String productKey;
     private BigDecimal discount;
-    private UserPaymentInfoPostRequest userPaymentInfo;
+    private UserPaymentInfoDto userPaymentInfo;
 
     public String getProductKey() {
         return productKey;
@@ -24,11 +24,11 @@ public class PaymentProcessRequest {
         this.discount = discount;
     }
 
-    public UserPaymentInfoPostRequest getUserPaymentInfo() {
+    public UserPaymentInfoDto getUserPaymentInfo() {
         return userPaymentInfo;
     }
 
-    public void setUserPaymentInfo(UserPaymentInfoPostRequest userPaymentInfo) {
+    public void setUserPaymentInfo(UserPaymentInfoDto userPaymentInfo) {
         this.userPaymentInfo = userPaymentInfo;
     }
 }

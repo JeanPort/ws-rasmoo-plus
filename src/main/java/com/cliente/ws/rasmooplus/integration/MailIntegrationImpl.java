@@ -5,7 +5,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MailIntegrationImpl implements MailIntegration{
+public class MailIntegrationImpl implements IMailIntegration {
 
     private final JavaMailSender mailSender;
 
@@ -14,11 +14,11 @@ public class MailIntegrationImpl implements MailIntegration{
     }
 
     @Override
-    public void sendMail(String mailTo, String message) {
+    public void sendMail(String mailTo, String message, String subject) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mailTo);
-        mailMessage.setSubject(message);
-        mailMessage.setText("Login: " + mailTo + ", senha: 1234");
+        mailMessage.setSubject(subject);
+        mailMessage.setText(message);
 
         mailSender.send(mailMessage);
     }

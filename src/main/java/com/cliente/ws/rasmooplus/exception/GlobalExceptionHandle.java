@@ -3,13 +3,9 @@ package com.cliente.ws.rasmooplus.exception;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Arrays;
-import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandle {
@@ -26,6 +22,12 @@ public class GlobalExceptionHandle {
         var list = fieldErrors.stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
         var error = new ErrorResponseList(list);
 
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handlerBusinessException(BusinessException e) {
+        var error = new ErrorResponse(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
